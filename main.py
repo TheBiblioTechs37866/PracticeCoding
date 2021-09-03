@@ -6,7 +6,7 @@ from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
-
+import random
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
@@ -26,16 +26,26 @@ def robot_stop():
     right_motor.brake()
     wait(seconds(0.25))
 
+def straight_left_straight(distance1, angle, distance2):
+    robot.straight(inches_to_mm(distance1))
+    random.randint(sec_to_ms(1), sec_to_ms(10))
+    robot.turn(angle)
+    random.randint(sec_to_ms(1), sec_to_ms(10))
+    robot.straight(inches_to_mm(distance2))
+    
+
+
 # OBJECTS
 ev3 = EV3Brick()
-left_motor = Motor(Port.C)
-right_motor = Motor(Port.B)
+left_motor = Motor(Port.D)
+right_motor = Motor(Port.C)
 front_motor = Motor(Port.A)
 robot = DriveBase(left_motor, right_motor, WHEEL_DIAMETER, 140)
 robot.settings(200, 100, 150, 100)
 gyro = GyroSensor(Port.S4)
 
 # PROGRAM
+straight_left_straight(12, 45, 12)
 two_inches = inches_to_mm(2)
 robot.straight(two_inches)
 robot.turn(90)
