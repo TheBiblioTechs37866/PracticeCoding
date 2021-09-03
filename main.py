@@ -1,48 +1,42 @@
 #!/usr/bin/env pybricks-micropython
-
-"""
-Example LEGO® MINDSTORMS® EV3 Robot Educator Driving Base Program
------------------------------------------------------------------
-
-This program requires LEGO® EV3 MicroPython v2.0.
-Download: https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3
-
-Building instructions can be found at:
-https://education.lego.com/en-us/support/mindstorms-ev3/building-instructions#robot
-"""
-
 from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import Motor
-from pybricks.parameters import Port
+from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
+                                 InfraredSensor, UltrasonicSensor, GyroSensor)
+from pybricks.parameters import Port, Stop, Direction, Button, Color
+from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
+from pybricks.media.ev3dev import SoundFile, ImageFile
 
 
-import random
+# This program requires LEGO EV3 MicroPython v2.0 or higher.
+# Click "Open user guide" on the EV3 extension tab for more information.
+WHEEL_DIAMETER = 56
 
-def straight_left_straight(d1, d2, turn_angle):
-    robot.straight(d1)
-    random_wait = random.randint(1000, 10000)
-    robot.wait(random_wait)
-    robot.turn(turn_angle * -1)
-    
+# FUNCTIONS HERE
+def inches_to_mm(inches):
+    return inches * 25.4
 
+def sec_to_ms(seconds):
+    MS = 1000
+    return seconds * MS
 
-    
-    print(random.randint(0,10))
+def robot_stop():
+    robot.stop()
+    left_motor.brake()
+    right_motor.brake()
+    wait(seconds(0.25))
 
-
-# Initialize the EV3 Brick.
+# OBJECTS
 ev3 = EV3Brick()
+left_motor = Motor(Port.C)
+right_motor = Motor(Port.B)
+front_motor = Motor(Port.A)
+robot = DriveBase(left_motor, right_motor, WHEEL_DIAMETER, 140)
+robot.settings(200, 100, 150, 100)
+gyro = GyroSensor(Port.S4)
 
-# Initialize the motors.
-left_motor = Motor(Port.B)
-right_motor = Motor(Port.C)
-
-# Initialize the drive base.
-robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
-
-
-straight_left_straight(100, 100, 90)
-
-
-
+# PROGRAM
+two_inches = inches_to_mm(2)
+robot.drive(two_inches)
+robot.turn(90)
+robot.drive(two_inches)
