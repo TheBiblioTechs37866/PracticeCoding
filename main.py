@@ -1,4 +1,6 @@
 #!/usr/bin/env pybricks-micropython
+
+import random
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
                                  InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -28,18 +30,15 @@ def robot_stop():
 
 # OBJECTS
 ev3 = EV3Brick()
-left_motor = Motor(Port.C)
-right_motor = Motor(Port.B)
+left_motor = Motor(Port.D)
+right_motor = Motor(Port.C)
 front_motor = Motor(Port.A)
 robot = DriveBase(left_motor, right_motor, WHEEL_DIAMETER, 140)
 robot.settings(200, 100, 150, 100)
-gyro = GyroSensor(Port.S4)
+#gyro = GyroSensor(Port.S4)
 
 # PROGRAM
-two_inches = inches_to_mm(2)
-robot.straight(two_inches)
-robot.turn(90)
-robot.straight(two_inches)
-
-#This is a change
-#This is another change
+front_motor.run_angle(1, 200)
+var_turn=random.randint(5,15)
+wait(5000)
+front_motor.run_angle(1, 200 * -1 ) 
