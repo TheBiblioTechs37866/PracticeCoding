@@ -26,6 +26,13 @@ def robot_stop():
     right_motor.brake()
     wait(seconds(0.25))
 
+
+def robot_turn():
+    button = ev3.buttons.pressed()
+    robot.stop
+    if button == Button.UP:
+        ev3.run(360)
+
 # OBJECTS
 ev3 = EV3Brick()
 left_motor = Motor(Port.C)
@@ -36,7 +43,4 @@ robot.settings(200, 100, 150, 100)
 gyro = GyroSensor(Port.S4)
 
 # PROGRAM
-two_inches = inches_to_mm(2)
-robot.straight(two_inches)
-robot.turn(90)
-robot.straight(two_inches)
+robot_turn()
