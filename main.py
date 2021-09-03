@@ -37,6 +37,6 @@ gyro = GyroSensor(Port.S4)
 
 # PROGRAM
 two_inches = inches_to_mm(2)
-robot.drive(two_inches)
+robot.straight(two_inches)
 robot.turn(90)
-robot.drive(two_inches)
+robot.straight(two_inches)
