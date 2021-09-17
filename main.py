@@ -33,23 +33,29 @@ def straight_left_straight(distance1, angle, distance2):
     random.randint(sec_to_ms(1), sec_to_ms(10))
     robot.straight(inches_to_mm(distance2))
     
+def straight_to_the_top(wait_time1, wait_time2):
+    gyro.reset_angle(0)
+    wait(wait_time1)
 
+    angle = gyro.angle()
+    ev3.screen.print(angle)
+
+    wait(wait_time2)
+
+    while robot.distance() < 1000:
+        robot.drive(100, angle * -1)
 
 # OBJECTS
 ev3 = EV3Brick()
-left_motor = Motor(Port.D)
-right_motor = Motor(Port.C)
+left_motor = Motor(Port.C)
+right_motor = Motor(Port.B)
 front_motor = Motor(Port.A)
 robot = DriveBase(left_motor, right_motor, WHEEL_DIAMETER, 140)
 robot.settings(200, 100, 150, 100)
 gyro = GyroSensor(Port.S4)
 
 # PROGRAM
-straight_left_straight(12, 45, 12)
-two_inches = inches_to_mm(2)
-robot.straight(two_inches)
-robot.turn(90)
-robot.straight(two_inches)
+straight_to_the_top(3000,3000)
 
 #This is a change
 #This is another change
