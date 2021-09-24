@@ -35,18 +35,14 @@ def straight_left_straight(distance1, angle, distance2):
     
 def straight_to_the_top(wait_time1, wait_time2):
     gyro.reset_angle(0)
-    wait(wait_time1)
-
-    angle = gyro.angle()
-
 
     wait(wait_time2)
 
     while robot.distance() < 1000:
         angle = gyro.angle()
-        robot.drive(100, angle)
+        robot.drive(100, angle * -1)
 
-def gyroscope_turn():
+
 
 
 # OBJECTS
@@ -60,6 +56,7 @@ gyro = GyroSensor(Port.S4)
 
 # PROGRAM
 straight_to_the_top(3000,3000)
-
+robot.turn(-45)
+straight_to_the_top(3000,3000)
 #This is a change
 #This is another change
