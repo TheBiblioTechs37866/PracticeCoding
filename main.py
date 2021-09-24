@@ -56,7 +56,5 @@ gyro = GyroSensor(Port.S4)
 
 # PROGRAM
 straight_to_the_top(3000,3000)
-robot.turn(-45)
-straight_to_the_top(3000,3000)
 #This is a change
 #This is another change
