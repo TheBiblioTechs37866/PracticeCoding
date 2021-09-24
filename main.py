@@ -38,12 +38,16 @@ def straight_to_the_top(wait_time1, wait_time2):
     wait(wait_time1)
 
     angle = gyro.angle()
-    ev3.screen.print(angle)
+
 
     wait(wait_time2)
 
     while robot.distance() < 1000:
-        robot.drive(100, angle * -1)
+        angle = gyro.angle()
+        robot.drive(100, angle)
+
+def gyroscope_turn():
+
 
 # OBJECTS
 ev3 = EV3Brick()
