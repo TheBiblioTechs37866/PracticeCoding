@@ -33,21 +33,32 @@ def robot_stop():
     random.randint(sec_to_ms(1), sec_to_ms(10))
     robot.straight(inches_to_mm(distance2))'''
     
-def straight_to_the_top(wait_time1, wait_time2):
+def straight_to_the_top(distance):
+    robot.reset()
     gyro.reset_angle(0)
 
     angle = gyro.angle()
 
-    wait(wait_time1)
 
 
-    while robot.distance() < 1000:
+    while robot.distance() <= distance:
         angle = gyro.angle()
         print(angle)
         robot.drive(100, angle * -1)
 
-#def gyro_turn(turn_angle):
-
+def gyro_turn(turn_angle):
+    gyro.reset_angle(0)
+    angle = gyro.angle()
+    if angle <= turn_angle:
+        while angle != turn_angle:
+            robot.turn(1)
+            angle=gyro.angle()
+            print(angle)
+    if angle >=turn_angle:
+        while angle != turn_angle:
+            robot.turn(-1)
+            angle=gyro.angle()
+            print(angle)
 
 
 # OBJECTS
@@ -60,7 +71,13 @@ robot = DriveBase(left_motor, right_motor, WHEEL_DIAMETER, 140)
 gyro = GyroSensor(Port.S4)
 
 # PROGRAM
-straight_to_the_top(3000,3000)
+straight_to_the_top(256)
+gyro_turn(46)
+straight_to_the_top(390)
+gyro_turn(41)
+straight_to_the_top(800)
+gyro_turn(-31)
+straight_to_the_top(600)
 
 
 #This is a change
